@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --production
+RUN npm install --production
 
 # Copy the application code
 COPY . .
@@ -18,4 +18,4 @@ RUN npx prisma generate
 EXPOSE 3000
 
 # Start the application
-CMD ["yarn", "start:prod"]
+CMD ["npm", "start:prod"]
