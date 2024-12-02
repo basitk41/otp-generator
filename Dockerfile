@@ -1,7 +1,7 @@
 # Use the official Node.js image
 FROM node:18-alpine
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
 # Install dependencies
@@ -11,24 +11,24 @@ RUN npm install --production
 # Copy the application code
 COPY . .
 
-# Install NestJS CLI locally for the build step
+# Install NestJS CLI and Prisma as dev dependencies
 RUN npm install @nestjs/cli --save-dev
 RUN npm install prisma --save-dev
 
 # Install Prisma client
-# RUN npx prisma migrate dev --name init
 RUN npm install @prisma/client
-
 
 # Generate Prisma client
 RUN npx prisma generate
 
+# Run Prisma migrations (this ensures that tables are created in the cloud environment)
+RUN npx prisma migrate deploy
+
 # Build the application
 RUN npm run build
-
 
 # Expose the application port
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "run", "start:prod"]
+# Start the application after running migrations
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
