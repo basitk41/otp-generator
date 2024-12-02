@@ -14,11 +14,12 @@ COPY . .
 # Install NestJS CLI locally for the build step
 RUN npm install @nestjs/cli --save-dev
 
+# Generate Prisma client
+RUN npx prisma generate
+
 # Build the application
 RUN npm run build
 
-# Generate Prisma client
-RUN npx prisma generate
 
 # Expose the application port
 EXPOSE 3000
