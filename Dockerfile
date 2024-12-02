@@ -13,6 +13,7 @@ COPY . .
 
 # Install NestJS CLI locally for the build step
 RUN npm install @nestjs/cli --save-dev
+RUN npm install prisma --save-dev
 RUN npx prisma
 RUN npx prisma init
 
