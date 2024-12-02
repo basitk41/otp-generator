@@ -24,7 +24,7 @@ RUN npm install @prisma/client
 RUN npx prisma generate
 
 # Run Prisma migrations (ensure that tables are created in the cloud environment)
-RUN npx prisma migrate deploy
+# RUN npx prisma migrate deploy
 
 # Build the application
 RUN npm run build
