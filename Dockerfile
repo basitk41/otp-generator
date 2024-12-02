@@ -4,11 +4,13 @@ FROM node:18-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
-# Install dependencies
+# Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install --production
 
-# Copy the application code
+# Copy the rest of the application code
 COPY . .
 
 # Install NestJS CLI and Prisma as dev dependencies
@@ -21,7 +23,7 @@ RUN npm install @prisma/client
 # Generate Prisma client
 RUN npx prisma generate
 
-# Run Prisma migrations (this ensures that tables are created in the cloud environment)
+# Run Prisma migrations (ensure that tables are created in the cloud environment)
 RUN npx prisma migrate deploy
 
 # Build the application
@@ -30,5 +32,5 @@ RUN npm run build
 # Expose the application port
 EXPOSE 3000
 
-# Start the application after running migrations
+# Start the application (ensure migrations are run before starting the app)
 CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
