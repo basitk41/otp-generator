@@ -11,17 +11,16 @@ services:
       - db
 
   db:
-    image: mysql:8.0
+    image: postgres:13 # PostgreSQL image
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      POSTGRES_USER: user # Define your database user
+      POSTGRES_PASSWORD: password # Define your database user's password
+      POSTGRES_DB: mydb # Define the name of the database
     ports:
-      - '3306:3306'
+      - '5432:5432' # PostgreSQL default port
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/postgresql/data # Data persistence
 
 volumes:
   db-data:
