@@ -16,7 +16,7 @@ RUN npm install @nestjs/cli --save-dev
 RUN npm install prisma --save-dev
 
 # Install Prisma client
-RUN npx prisma migrate dev --name init
+# RUN npx prisma migrate dev --name init
 RUN npm install @prisma/client
 
 
