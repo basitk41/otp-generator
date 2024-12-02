@@ -9,18 +9,17 @@ services:
       - .env
     depends_on:
       - db
-
   db:
-    image: postgres:13 # PostgreSQL image
+    image: mysql:8.0
     restart: always
     environment:
-      POSTGRES_USER: user # Define your database user
-      POSTGRES_PASSWORD: password # Define your database user's password
-      POSTGRES_DB: mydb # Define the name of the database
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - '5432:5432' # PostgreSQL default port
+      - '3306:3306'
     volumes:
-      - db-data:/var/lib/postgresql/data # Data persistence
-
+      - db-data:/var/lib/mysql
 volumes:
   db-data:
