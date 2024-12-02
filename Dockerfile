@@ -11,6 +11,9 @@ RUN npm install --production
 # Copy the application code
 COPY . .
 
+# Install NestJS CLI locally for the build step
+RUN npm install @nestjs/cli --save-dev
+
 # Build the application
 RUN npm run build
 
